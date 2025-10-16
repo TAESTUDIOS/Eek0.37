@@ -30,10 +30,28 @@ async function ensureIdempotencyTable() {
 
 export async function POST(req: Request) {
   try {
-    // Auth
+    // Auth: allow either Bearer <N8N_WEBHOOK_TOKEN> or Basic <base64(user:pass)>
     const auth = req.headers.get("authorization") || "";
     const token = (process.env.N8N_WEBHOOK_TOKEN || "").trim();
-    if (!token || auth !== `Bearer ${token}`) {
+    const basicUser = (process.env.N8N_BASIC_USER || "").trim();
+    const basicPass = (process.env.N8N_BASIC_PASS || "").trim();
+
+    let authorized = false;
+    if (token && auth === `Bearer ${token}`) {
+      authorized = true;
+    } else if (auth.startsWith("Basic ")) {
+      try {
+        const raw = atob(auth.slice(6));
+        const idx = raw.indexOf(":");
+        const u = idx >= 0 ? raw.slice(0, idx) : raw;
+        const p = idx >= 0 ? raw.slice(idx + 1) : "";
+        // Accept explicit user/pass pair from env, or username == token with empty password
+        if ((basicUser && basicPass && u === basicUser && p === basicPass) || (token && u === token && p === "")) {
+          authorized = true;
+        }
+      } catch {}
+    }
+    if (!authorized) {
       return NextResponse.json({ ok: false, error: "unauthorized" }, { status: 401 });
     }
 
