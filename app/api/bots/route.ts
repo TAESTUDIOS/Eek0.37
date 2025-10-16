@@ -1,14 +1,13 @@
 // app/api/bots/route.ts
-// CRUD API for bot profiles
+// CRUD API for bot profiles. Avoids top-level DB connection (build-safe).
 
 import { NextRequest, NextResponse } from "next/server";
-import { neon } from "@neondatabase/serverless";
 import type { BotProfile } from "@/lib/types";
-
-const sql = neon(process.env.DATABASE_URL!);
+import { getDb } from "@/lib/db";
 
 export async function GET() {
   try {
+    const sql = getDb();
     const rows = await sql`
       SELECT * FROM bots ORDER BY created_at DESC
     `;
@@ -33,6 +32,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const bot: BotProfile = body;
+    const sql = getDb();
     await sql`
       INSERT INTO bots (id, name, avatar, description, webhook, expertise, active, created_at, updated_at)
       VALUES (${bot.id}, ${bot.name}, ${bot.avatar || null}, ${bot.description}, ${bot.webhook}, ${bot.expertise || null}, ${bot.active}, ${bot.createdAt}, ${bot.updatedAt})
@@ -55,6 +55,7 @@ export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
     const bot: BotProfile = body;
+    const sql = getDb();
     await sql`
       UPDATE bots SET
         name = ${bot.name},
@@ -77,6 +78,7 @@ export async function DELETE(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
     if (!id) return NextResponse.json({ ok: false, error: "Missing id" }, { status: 400 });
+    const sql = getDb();
     await sql`DELETE FROM bots WHERE id = ${id}`;
     return NextResponse.json({ ok: true });
   } catch (e: any) {
