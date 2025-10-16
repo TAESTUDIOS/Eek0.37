@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Logo from '@/images/logo/logo.png';
 
 /**
  * HomePage (Splash)
@@ -26,7 +25,7 @@ export default function HomePage() {
         {/* Logo badge */}
         <div className="flex h-28 w-28 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10 shadow-subtle md:h-36 md:w-36">
           <Image
-            src={Logo}
+            src="/images/logo/logo.png"
             alt="Eeko logo"
             priority
             className="h-16 w-16 object-contain opacity-95 md:h-20 md:w-20"

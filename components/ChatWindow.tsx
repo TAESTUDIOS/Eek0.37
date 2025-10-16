@@ -12,7 +12,6 @@ import EmotionCard from "@/components/EmotionCard";
 import EmotionHeader from "@/components/EmotionHeader";
 import { getEmotionDescriptor } from "@/lib/emotions";
 import DemoRenderer from "@/components/chat/DemoRenderer";
-import Logo from "@/images/logo/logo.png";
 import AssistantAvatar from "@/components/AssistantAvatar";
 import TypingIndicator from "@/components/TypingIndicator";
 
@@ -166,7 +165,7 @@ export default function ChatWindow() {
       {renderMessages.length === 0 && (
         <div className="flex-1 flex items-center justify-center">
           <Image
-            src={Logo}
+            src="/images/logo/logo.png"
             alt="Eeko logo"
             width={96}
             height={96}
@@ -229,7 +228,7 @@ export default function ChatWindow() {
                     ) : (
                       <div className="w-4 h-4 flex-shrink-0 flex items-center justify-center">
                         <Image
-                          src={Logo}
+                          src="/images/logo/logo.png"
                           alt={m.botName || assistantName}
                           width={16}
                           height={16}
@@ -298,7 +297,7 @@ export default function ChatWindow() {
             <div className="flex items-center gap-2 mb-2">
               <div className="w-4 h-4 flex-shrink-0 flex items-center justify-center">
                 <Image
-                  src={Logo}
+                  src="/images/logo/logo.png"
                   alt={assistantName}
                   width={16}
                   height={16}

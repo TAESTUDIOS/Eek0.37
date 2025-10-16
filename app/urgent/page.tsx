@@ -9,7 +9,6 @@ import Sidebar from "@/components/Sidebar";
 import UrgentTodoForm from "@/components/UrgentTodoForm";
 import UrgentTodoList from "@/components/UrgentTodoList";
 import { useAppStore } from "@/lib/store";
-import Logo from "@/images/logo/logo.png";
 
 export default function UrgentPage() {
   const { addUrgentTodo, loadUrgentTodos } = useAppStore();
@@ -28,7 +27,7 @@ export default function UrgentPage() {
           <div className="flex items-center justify-between gap-3 px-3 py-2 border-b border-[var(--border)] rounded-t-lg">
             <div className="flex items-center gap-2">
               <Image
-                src={Logo}
+                src="/images/logo/logo.png"
                 alt="Eeko logo"
                 width={22}
                 height={22}

@@ -12,7 +12,7 @@ import { useNotesStore } from "@/lib/notes-store";
 import NoteEditor from "@/components/NoteEditor";
 import Sidebar from "@/components/Sidebar";
 import type { Note, Folder } from "@/lib/types";
-import Logo from "@/images/logo/logo.png";
+
 
 export default function NotesPage() {
   const {
@@ -174,7 +174,7 @@ export default function NotesPage() {
           <div className="flex items-center justify-between gap-3 px-3 py-2 border-b border-[var(--border)] rounded-t-lg">
             <div className="flex items-center gap-2">
               <Image
-                src={Logo}
+                src="/images/logo/logo.png"
                 alt="Eeko logo"
                 width={22}
                 height={22}

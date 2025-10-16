@@ -68,7 +68,8 @@ export function dueMedicationIds(now: Date, tz: string, meds: SimpleMedication[]
   const dom = dayOfMonthInTz(now, tz);
 
   return meds
-    .filter((m) => !!m.active && Array.isArray(m.times) && m.times.includes(hhmm))
+    // Default to active=true if m.active is undefined
+    .filter((m) => (m.active ?? true) && Array.isArray(m.times) && m.times.includes(hhmm))
     .filter((m) => {
       switch (m.repeat) {
         case "daily":

@@ -7,7 +7,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useAppStore } from "@/lib/store";
 import Image from "next/image";
 import Sidebar from "@/components/Sidebar";
-import Logo from "@/images/logo/logo.png";
 import type { Appointment } from "@/lib/types";
 import TemplateSelector from "@/components/TemplateSelector";
 import ScheduleComposer from "@/components/ScheduleComposer";
@@ -250,7 +249,7 @@ export default function ScheduleOverviewPage() {
           <div className="flex items-center justify-between gap-3 px-3 py-2 border-b border-[var(--border)] rounded-t-lg">
             <div className="flex items-center gap-2">
               <Image
-                src={Logo}
+                src="/images/logo/logo.png"
                 alt="Eeko logo"
                 width={22}
                 height={22}
